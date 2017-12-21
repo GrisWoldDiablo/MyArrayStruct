@@ -19,7 +19,7 @@ public:
 		}
 	}
 
-	MyArray(initializer_list<T> iniList = {}) {
+	MyArray(initializer_list<T> iniList) {
 		size = iniList.size();
 		arrayValue = new T[size];
 		for (size_t i = 0; i < size; i++) {
@@ -85,7 +85,8 @@ void main() {
 	vector<int> testmi = { 23,56,87,12,5 };
 
 	do {
-		MyArray<string> testThisSizedArray(3);
+		
+		MyArray<string> testThisSizedArray;
 		for (int i = 0; i < testThisSizedArray.size; i++) {
 			cout << "Index: " << i << ", Value: " << testThisSizedArray[i] << endl;
 		}
