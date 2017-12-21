@@ -10,6 +10,15 @@ private:
 	T *arrayValue = NULL;
 public:
 	size_t size;
+
+	MyArray(int initSize = 0) {
+		size = initSize;
+		arrayValue = new T[size];
+		for (size_t i = 0; i < size; i++) {
+			arrayValue[i] = T{};
+		}
+	}
+
 	MyArray(initializer_list<T> iniList = {}) {
 		size = iniList.size();
 		arrayValue = new T[size];
@@ -73,19 +82,16 @@ public:
 
 void main() {
 
-	vector<int> testmi = { 23,56,87,12,5,0,123,-345 };
-	int arraySize;
+	vector<int> testmi = { 23,56,87,12,5 };
+
 	do {
-		/*cout << "What size: ";
-		cin >> arraySize;
-		MyArray<string> testThisArray;
-		testThisArray.reSize(arraySize);*/
+		MyArray<string> testThisSizedArray(3);
+		for (int i = 0; i < testThisSizedArray.size; i++) {
+			cout << "Index: " << i << ", Value: " << testThisSizedArray[i] << endl;
+		}
 		MyArray<string> testThisArray = { "hello","World" };
 		MyArray<int> thisIsIntArray = { 123,56,123,678,23,5,0 };
 		cout << "Value to add to array of String: ";
-		/*int addV;
-		cin >> addV;
-		cin.ignore();*/
 		string addV;
 		getline(cin, addV);
 
