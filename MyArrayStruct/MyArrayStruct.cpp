@@ -4,30 +4,27 @@
 
 using namespace std;
 
-template <typename T>
+template <typename T, size_t initSize = 0>
 struct MyArray {
 private:
-	T *arrayValue = NULL;
+	T * arrayValue = NULL;
 public:
 	size_t size;
 
-	MyArray(int initSize = 0) {
+	MyArray() {
 		size = initSize;
 		arrayValue = new T[size];
-		for (size_t i = 0; i < size; i++) {
-			arrayValue[i] = T{};
-		}
 	}
 
-	MyArray(initializer_list<T> iniList) {
-		size = iniList.size();
+	MyArray(initializer_list<T> initList) {
+		size = initList.size();
 		arrayValue = new T[size];
 		for (size_t i = 0; i < size; i++) {
-			arrayValue[i] = *(iniList.begin() + i);
+			arrayValue[i] = *(initList.begin() + i);
 		}
 	}
 
-	T& operator[](int i) {
+	T& operator[](size_t i) {
 		return arrayValue[i];
 	}
 	void addValue(T valueToAdd) {
@@ -43,9 +40,9 @@ public:
 		arrayValue = tempArray;
 	}
 
-	void reSize(int newSize) {
-		
-		
+	void reSize(size_t newSize) {
+
+
 		if (newSize <= 0) {
 			delete[] arrayValue;
 			arrayValue = NULL;
@@ -55,7 +52,7 @@ public:
 		size_t oldSize = size;
 		size = newSize;
 		T *tempArray = new T[newSize];
-	
+
 		if (newSize > oldSize) {
 			for (size_t i = 0; i < oldSize; i++) {
 
@@ -83,9 +80,18 @@ public:
 void main() {
 
 	vector<int> testmi = { 23,56,87,12,5 };
-
+	const int row = 10, column = 10;	
+	MyArray <MyArray<string, column>, row> multiMyArray;
+	for (size_t i = 0; i < row; i++) {
+		for (size_t j = 0; j < column; j++) {
+			multiMyArray[i][j] = to_string(i) + ":" + to_string(j) + ",";
+			cout << multiMyArray[i][j];
+		}
+		cout << "-Column" << endl;
+	}
+	
 	do {
-		
+
 		MyArray<string> testThisSizedArray;
 		for (int i = 0; i < testThisSizedArray.size; i++) {
 			cout << "Index: " << i << ", Value: " << testThisSizedArray[i] << endl;
@@ -103,7 +109,7 @@ void main() {
 		}
 		int index;
 		do {
-			
+
 			cout << "Choose Index # to modify: ";
 			cin >> index;
 			cin.ignore();
